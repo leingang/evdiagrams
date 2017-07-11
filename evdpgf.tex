@@ -1,0 +1,79 @@
+\documentclass{article}
+\title{Edwards-Venn Diagrams with PGF}
+\author{Matthew Leingang}
+\usepackage{tikz}
+\usepackage{fp}
+
+% This is to recreate the Edwards-Venn Diagrams such as I found in
+% chapter 4 of "Another Fine Math you Got me Into...
+
+%% From Alain Matthes
+%% http://www.nabble.com/TikZ-for-geometric-drawings--tf3210067.html#a8914364
+%\makeatletter
+%\newcommand*{\extractvect}[2]{%  \vx et \vy
+%\pgfextractx{\pgf@x}{\pgfpointanchor{#1}{center}}
+%\pgf@xa=\pgf@x%
+%\pgfextracty{\pgf@y}{\pgfpointanchor{#1}{center}}
+%\pgf@ya=\pgf@y%
+%\pgfextractx{\pgf@x}{\pgfpointanchor{#2}{center}}
+%\pgfextracty{\pgf@y}{\pgfpointanchor{#2}{center}}
+%\advance\pgf@x by-\pgf@xa\relax%
+%\advance\pgf@y by-\pgf@ya\relax%
+%\global\expandafter\edef\csname tkz@vx\endcsname{\the\pgf@x}%
+%\global\expandafter\edef\csname tkz@vy\endcsname{\the\pgf@y}
+%}
+
+%\newdimen\@tmplen
+%% longueur entre deux noeuds
+%\newcommand*{\dist}[2]{
+%\extractvect{#1}{#2}
+%\@tmplen=\tkz@vx
+%\edef\@vx{\strip@pt\@tmplen}%
+%\FPmul\@vxc{\@vx}{\@vx}
+%\@tmplen=\tkz@vy
+%\edef\@vy{\strip@pt\@tmplen}%
+%\FPmul\@vyc{\@vy}{\@vy}
+%\FPadd{\@sdc}{\@vxc}{\@vyc}
+%\FProot{\@sdc}{\@sdc}{2}
+%\global\let\@sdc\@sdc
+%}
+
+%
+%\define@cmdkey[TKZ]{tkzcc}{pos}{}
+%\define@cmdkey[TKZ]{tkzcc}{color}{}
+%\define@cmdkey[TKZ]{tkzcc}{size}{}
+%\define@cmdkey[TKZ]{tkzcc}{style}{}
+%\presetkeys[TKZ]{tkzcc}{color = black,%
+%                          size  = 0.8 pt,%
+%                          pos   = above}{}
+
+%\newcommand*{\tkzcc}[1][]{\tkz@cc[#1]}%
+%\def\tkz@cc[#1](#2,#3){%
+%\dist{#2}{#3}
+%\draw[] (#2) circle (\@sdc pt);}
+
+%\newcommand*{\tkzarcc}[1][]{\tkz@arcc[#1]}%
+%\def\tkz@arcc[#1](#2:#3:#4:#5){%
+%\dist{#4}{#5}
+%\draw[#1] (#4) arc (#2:#3:\@sdc pt);}
+
+% 2007-04-29
+% Now that I understand the FP package, it should be easier than I 
+% thought.  Use that to compute the radii and angles for pi divided by each
+% power of two.
+
+ 
+\makeatother
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}[scale=3]
+\draw (0,0) coordinate (O) circle (1cm);
+\draw (45:1) node (A) {$\bullet$} node[above right] {$A$};
+\draw (-45:1) node (B) {$\bullet$} node[above right] {$B$};
+\draw (A) +(-45:1) node (C) {$\bullet$} node[above right] {$C$};
+\draw (B) arc (-135:135:1);
+\draw (A) arc (-45:-135:1);
+\end{tikzpicture}
+\end{center}
+\end{document}
